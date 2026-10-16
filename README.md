@@ -7,7 +7,6 @@
 A voice-enabled 3D AI mascot built for a hands-on Science Expo experience.
 
 ![React](https://img.shields.io/badge/React-Vite-61DAFB?logo=react&logoColor=white)
-![Three.js](https://img.shields.io/badge/3D-React_Three_Fiber-000000?logo=threedotjs&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js_%2B_Express-339933?logo=nodedotjs&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Expo_Ready-brightgreen)
 
