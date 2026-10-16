@@ -1,102 +1,231 @@
-🤖 BUDDY 2.0 — Your Interactive AI Companion
-Talk. Play. Learn. Explore.
-An interactive 3D AI companion built for a hands-on Science Expo experience.
+<div align="center">
 
-BUDDY 2.0 is a voice-enabled AI companion that combines a 3D robot character, conversational AI, multilingual interaction, mini-games, science activities, and a session-based rewards system. Visitors can talk or type questions, choose BUDDY's personality, explore STEM topics, play games, and earn experience points.
-The project is built with React, Vite, Three.js / React Three Fiber, Node.js, and Express. An optional backend AI integration can connect to supported AI providers, while a local fallback response engine helps the application remain usable when the backend or external AI service is unavailable.
-✨ Highlights
-- Interactive 3D robot: Animated BUDDY character with idle movement, expressions, blinking, cursor tracking, and speaking reactions.
-- Voice and text conversation: Talk to BUDDY with the browser's speech-recognition support or type a question.
-- Multilingual experience: Language selection and language-specific speech settings are centralized in the application.
-- AI conversation: Backend chat proxy with configurable AI-provider integration and a local fallback response engine.
-- Personality modes: Playful, Explorer, and Helper styles for different conversational experiences.
-- Game arcade: Mini-games, STEM challenges, high scores, and arcade progress.
-- Rewards and progression: XP, levels, achievements, session scoring, and completion screens.
-- Science Expo mode: Presentation-friendly controls, an information panel, and a visitor reset flow.
-- Relax mode: A short guided breathing experience.
-- Responsive interaction: Designed for a laptop or large display with mouse, keyboard, and touch interaction where supported.
-Scope note: The current repository snapshot includes the chatbot, 3D character, and arcade systems described below. Real-time webcam object detection and visual question answering should only be listed as available features after those modules have been implemented and tested in the repository.
+# 🤖 BUDDY 2.0
 
-🧰 Tech Stack
-Area	Technology
-Frontend	React
-Development server and bundling	Vite
-3D rendering	Three.js, React Three Fiber, Drei
-Backend	Node.js, Express
-AI integration	Configurable provider through the backend chat route
-Supported provider configuration	Gemini, OpenAI, Groq, OpenRouter, or compatible OpenAI-format endpoints, depending on provider configuration
-Voice input	Browser Web Speech API where supported
-Voice output	Browser speech synthesis where compatible voices are available
-Icons and effects	Lucide React, Canvas Confetti
-Tests	Node.js built-in test runner
-Linting	Oxlint
+### Your Interactive AI Companion — *Talk. Play. Learn. Explore.*
 
+A voice-enabled 3D AI mascot built for a hands-on Science Expo experience.
 
-🎮 Arcade Games and Activities
-The current arcade includes these playable modules:
-Game / Activity	Description
-BUDDY Flight	Guide BUDDY through obstacles by flapping and timing movements.
-Robo Run	Run through a neon course, avoid obstacles, and collect power-ups.
-Quiz Blast	Answer STEM and computing questions in a rocket-themed quiz.
-Brain Flip	Match cards and test visual memory.
-Catch the Bots	Test reaction speed by tapping targets and avoiding decoys.
-BUDDY Pet Studio	Customize BUDDY's appearance with available cosmetic options.
+![React](https://img.shields.io/badge/React-Vite-61DAFB?logo=react&logoColor=white)
+![Three.js](https://img.shields.io/badge/3D-React_Three_Fiber-000000?logo=threedotjs&logoColor=white)
+![Node.js](https://img.shields.io/badge/Backend-Node.js_%2B_Express-339933?logo=nodedotjs&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Expo_Ready-brightgreen)
 
+</div>
 
-Other interactive areas include the Ask BUDDY question panel, personality selection, Relax Mode, session timer, and reward/completion screens.
-Game availability and rewards are determined by the implemented game logic. Do not assume that every AI-generated command can launch or control a game unless the corresponding intent and game handler are connected.
-🌐 Languages and Voice Support
-BUDDY includes a centralized language configuration in src/utils/languages.js. The repository contains language settings for English, Tamil, Hindi, Telugu, Malayalam, Kannada, Bengali, Spanish, French, and German.
-Actual speech recognition and speech synthesis depend on the browser, operating system, and available language voices. A language may work for typed chat while spoken output is unavailable if the device does not provide a compatible voice.
-For best results:
+---
+
+## 📖 Overview
+
+**BUDDY 2.0** is an interactive kiosk-style application that combines an animated 3D robot character, conversational AI, multilingual voice interaction, mini-games, and a session-based rewards system. Visitors can talk or type to BUDDY, pick a personality, explore STEM topics, play arcade games, and earn XP.
+
+An optional backend connects to a supported AI provider. If the backend or provider is unavailable, a **local fallback response engine** keeps BUDDY usable, so a demo never goes completely silent.
+
+> **Scope note:** This README documents only what is implemented in the repository. Webcam object detection and visual question answering are listed under [Roadmap](#-roadmap) and are **not** yet available.
+
+## 📑 Table of Contents
+
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Quick Start](#-quick-start)
+- [Environment Variables](#-environment-variables)
+- [Available Scripts](#-available-scripts)
+- [Arcade & Activities](#-arcade--activities)
+- [Languages & Voice](#-languages--voice)
+- [Architecture](#-architecture)
+- [Project Structure](#-project-structure)
+- [Troubleshooting](#-troubleshooting)
+- [Expo Day Checklist](#-expo-day-checklist)
+- [Privacy & Responsible Use](#-privacy--responsible-use)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 🧍 **Interactive 3D robot** | Animated character with idle movement, expressions, blinking, cursor tracking, and speaking reactions |
+| 🎙️ **Voice + text chat** | Speak via the browser's speech recognition, or type a question |
+| 🌍 **Multilingual** | Centralized language and speech settings for 10 languages |
+| 🧠 **AI conversation** | Backend chat proxy with configurable providers, plus an offline fallback engine |
+| 🎭 **Personality modes** | Playful, Explorer, and Helper conversation styles |
+| 🕹️ **Game arcade** | Six mini-games and activities with high scores and arcade progress |
+| 🏆 **Rewards system** | XP, levels, achievements, session scoring, and completion screens |
+| 🎪 **Science Expo mode** | Presentation-friendly controls, info panel, and one-click visitor reset |
+| 🧘 **Relax mode** | A short guided breathing experience |
+| 🖱️ **Flexible input** | Built for laptops and large displays with mouse, keyboard, and touch (where supported) |
+
+## 🧰 Tech Stack
+
+| Area | Technology |
+|---|---|
+| Frontend | React |
+| Bundler / dev server | Vite |
+| 3D rendering | Three.js, React Three Fiber, Drei |
+| Backend | Node.js, Express |
+| AI integration | Configurable provider via the backend chat route (Gemini, OpenAI, Groq, OpenRouter, or any OpenAI-compatible endpoint) |
+| Voice input | Browser Web Speech API (where supported) |
+| Voice output | Browser Speech Synthesis (where voices are available) |
+| UI extras | Lucide React, Canvas Confetti |
+| Testing | Node.js built-in test runner |
+| Linting | Oxlint |
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** — a current LTS release (npm is included)
+- A modern browser such as **Chrome** or **Edge**
+- Internet access (for installing dependencies and using an external AI provider)
+- Microphone permission (for voice input)
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone <YOUR_REPOSITORY_URL>
+cd <YOUR_PROJECT_FOLDER>
+
+# 2. Install dependencies
+npm install
+
+# 3. Create your environment file
+cp .env.example .env
+# then edit .env (see "Environment Variables" below)
+
+# 4. Start the frontend and backend together
+npm run dev
+```
+
+Then open **http://localhost:5173** and allow microphone access if you want to use **Tap to Talk**. Camera access is not required.
+
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| Backend | http://localhost:3001 |
+| Health check | http://localhost:3001/api/health |
+
+The Vite dev server proxies `/api` requests to the Express backend on port `3001`.
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the project root (use `.env.example` as the template):
+
+```env
+# Express backend
+PORT=3001
+
+# AI provider: gemini | openai | groq | openrouter | compatible OpenAI-format endpoint
+AI_PROVIDER=gemini
+AI_API_KEY=your_api_key_here
+AI_MODEL=your_model_name_here
+
+# Frontend API base (defaults to the Vite /api proxy)
+VITE_API_BASE_URL=/api
+```
+
+> ⚠️ **Security**
+> - Keep real API keys in `.env` on the **server side** only. Never commit `.env` or place keys in client code.
+> - Use a model identifier that your provider and account actually support; model names change over time.
+> - With no key configured, BUDDY uses the limited local fallback engine.
+> - See `.env.example` and `server/routes/chat.js` for the exact options your code supports.
+
+## 🧪 Available Scripts
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the Express backend and Vite frontend together |
+| `npm run dev:client` | Start only the frontend |
+| `npm run server` | Start only the backend |
+| `npm test` | Run the test suite (`test/core.test.js`) |
+| `npm run lint` | Run Oxlint |
+| `npm run build` | Create a production build in `dist/` |
+| `npm run preview` | Preview the production build locally |
+
+Before submitting changes, run:
+
+```bash
+npm test && npm run lint && npm run build
+```
+
+## 🎮 Arcade & Activities
+
+| Game / Activity | Description |
+|---|---|
+| **BUDDY Flight** | Guide BUDDY through obstacles by flapping and timing your moves |
+| **Robo Run** | Sprint through a neon course, dodge obstacles, collect power-ups |
+| **Quiz Blast** | Answer STEM and computing questions in a rocket-themed quiz |
+| **Brain Flip** | Match cards and test your visual memory |
+| **Catch the Bots** | Test reaction speed: tap targets, avoid decoys |
+| **BUDDY Pet Studio** | Customize BUDDY's look with cosmetic options |
+
+Other areas: the **Ask BUDDY** panel, personality selection, **Relax Mode**, the session timer, and reward/completion screens.
+
+> Game launching by voice or AI command only works for intents that are connected to a game handler (see `gameIntentService.js`). Don't assume every AI-generated command can start or control a game.
+
+## 🌐 Languages & Voice
+
+Language settings live in `src/utils/languages.js` and cover **English, Tamil, Hindi, Telugu, Malayalam, Kannada, Bengali, Spanish, French, and German**.
+
+Speech recognition and synthesis depend on the browser, operating system, and installed voices. A language may work for typed chat while spoken output is unavailable on a given device; BUDDY should keep the text response visible and report that voice is unavailable.
+
+**For best results:**
 1. Use a modern browser with microphone permission enabled.
-2. Select the language before speaking.
-3. Check that the browser supports speech recognition for the chosen language.
-4. Check available speech-synthesis voices if BUDDY does not speak the response.
-5. Use typed chat as a fallback when speech input is unsupported.
-🏗️ Architecture
+2. Select the language *before* speaking.
+3. Confirm the browser supports speech recognition for that language.
+4. Check installed speech-synthesis voices if BUDDY doesn't speak.
+5. Fall back to typed chat when speech input isn't supported.
+
+## 🏗️ Architecture
+
+```text
 BUDDY 2.0
-│
 ├── React + Vite frontend
-│   ├── Main application and Expo controls
+│   ├── App and Expo controls
 │   ├── 3D character and Three.js scene
-│   ├── Speech recognition and speech synthesis hooks
-│   ├── Conversation service and offline fallback
+│   ├── Speech recognition / synthesis hooks
+│   ├── Conversation service + offline fallback
 │   ├── Arcade games and game state
-│   ├── XP, scoring, achievements, and completion screens
+│   ├── XP, scoring, achievements, completion screens
 │   └── Session timer and visitor reset
 │
 ├── Node.js + Express backend
-│   ├── Health endpoint
-│   └── /api/chat — AI provider proxy
+│   ├── GET  /api/health
+│   └── POST /api/chat   → AI provider proxy
 │
-└── AI provider (optional)
-    └── Configured server-side using environment variables
-Conversation flow
-1. A visitor types a message or speaks through the microphone.
-2. The frontend passes the message and conversation context to the conversation service.
-3. The service attempts to contact the backend AI route.
-4. When configured, the backend calls the selected AI provider.
-5. The response is returned to the frontend and displayed.
-6. Speech synthesis speaks the response when a suitable browser voice is available.
-7. BUDDY's character state and UI reflect the interaction.
-If the external AI service cannot be reached, the local fallback engine may provide a limited response. The fallback is not equivalent to a full general-purpose AI model.
-📁 Project Structure
+└── AI provider (optional, configured server-side via env vars)
+```
+
+### Conversation flow
+
+```text
+Visitor types or speaks
+        ↓
+Frontend → conversationService (message + context)
+        ↓
+Backend /api/chat ──(if configured)──→ AI provider
+        ↓                                   │
+   Response ←───────────────────────────────┘
+        ↓
+Displayed in speech bubble → spoken via speech synthesis (if a voice exists)
+        ↓
+Character state and UI update
+```
+
+If the AI service can't be reached, the local fallback engine returns a limited response. It is **not** equivalent to a full general-purpose AI model.
+
+## 📁 Project Structure
+
+```text
 BUDDY PROJECT/
 ├── server/
 │   ├── index.js
-│   └── routes/
-│       └── chat.js
+│   └── routes/chat.js
 ├── src/
 │   ├── components/
-│   │   ├── arcade/
-│   │   │   ├── BuddyFlight.jsx
-│   │   │   ├── RoboRun.jsx
-│   │   │   ├── QuizBlast.jsx
-│   │   │   ├── BrainFlip.jsx
-│   │   │   ├── CatchTheBots.jsx
-│   │   │   ├── BuddyPetStudio.jsx
-│   │   │   └── GameArcade.jsx
+│   │   ├── arcade/            # BuddyFlight, RoboRun, QuizBlast, BrainFlip,
+│   │   │                      # CatchTheBots, BuddyPetStudio, GameArcade
 │   │   ├── BuddyCharacter.jsx
 │   │   ├── BuddyScene.jsx
 │   │   ├── ExpoControls.jsx
@@ -107,147 +236,120 @@ BUDDY PROJECT/
 │   │   ├── CompletionScreen.jsx
 │   │   ├── CharacterSpeechBubble.jsx
 │   │   └── RelaxMode.jsx
-│   ├── hooks/
-│   │   ├── useSpeechRecognition.js
-│   │   ├── useSpeechSynthesis.js
-│   │   ├── useSessionTimer.js
-│   │   └── useInactivity.js
-│   ├── services/
-│   │   ├── conversationService.js
-│   │   ├── fallbackResponses.js
-│   │   ├── gameIntentService.js
-│   │   ├── arcadeService.js
-│   │   ├── scoringService.js
-│   │   └── soundEffects.js
-│   ├── utils/
-│   │   ├── languages.js
-│   │   ├── characterStates.js
-│   │   ├── gameQuestions.js
-│   │   ├── quizQuestions.js
-│   │   └── formatTime.js
+│   ├── hooks/                 # useSpeechRecognition, useSpeechSynthesis,
+│   │                          # useSessionTimer, useInactivity
+│   ├── services/              # conversationService, fallbackResponses,
+│   │                          # gameIntentService, arcadeService,
+│   │                          # scoringService, soundEffects
+│   ├── utils/                 # languages, characterStates, gameQuestions,
+│   │                          # quizQuestions, formatTime
 │   ├── App.jsx
 │   └── main.jsx
-├── test/
-│   └── core.test.js
+├── test/core.test.js
 ├── .env.example
 ├── package.json
 ├── vite.config.js
 └── README.md
-This is a guide to the main source files; minor files and implementation details may change as the project evolves.
-⚙️ Prerequisites
-Install the following before running the project:
-- Node.js: A current supported LTS release compatible with the project's dependencies.
-- npm: Included with Node.js.
-- A modern browser such as Chrome or Edge.
-- Internet access if using an external AI provider or downloading dependencies.
-- Microphone permission for voice input.
-- A compatible browser voice for spoken output, if available.
-🚀 Getting Started
-1. Download or clone the project
-If the project is hosted on GitHub:
-git clone <YOUR_REPOSITORY_URL>
-cd <YOUR_PROJECT_FOLDER>
-Replace the placeholders with your actual repository URL and folder name. If you already have the project locally, open its root folder in a terminal.
-2. Install dependencies
-npm install
-3. Configure environment variables
-Create a .env file in the project root, using .env.example as the template.
-Example:
-# Express backend
-PORT=3001
+```
 
-# AI provider: gemini, openai, groq, openrouter,
-# or a compatible OpenAI-format endpoint
-AI_PROVIDER=gemini
-AI_API_KEY=your_api_key_here
-AI_MODEL=gemini-1.5-flash
+*This is a guide to the main files; minor files and details may change as the project evolves.*
 
-# Frontend API base; defaults to the Vite /api proxy
-VITE_API_BASE_URL=/api
-Important:
-- Replace the example key with a valid key for the provider you select.
-- Use a model identifier supported by your provider and account. The example model may need updating.
-- Keep real API keys in .env on the server side. Never commit .env or expose private keys in client-side code.
-- If no external AI key is configured, the application may use its local fallback response engine, which has more limited capabilities.
-- Review .env.example and server/routes/chat.js for the exact configuration supported by your current code.
-4. Start the frontend and backend
-Run both services from the project root:
-npm run dev
-The configured development setup starts:
-- Frontend: http://localhost:5173
-- Backend: http://localhost:3001
-- Backend health check: http://localhost:3001/api/health
-The Vite development server proxies /api requests to the Express backend on port 3001.
-If either port is already in use, stop the conflicting process or update the configuration consistently.
-5. Open BUDDY
-Open http://localhost:5173 in your browser.
-Allow microphone access when prompted if you want to use Tap to Talk. Camera access is not required for the features in the current repository snapshot.
-🧪 Available Commands
-Command	Purpose
-npm run dev	Start the Express backend and Vite frontend together.
-npm run dev:client	Start only the frontend development server.
-npm run server	Start only the Express backend.
-npm test	Run the Node.js test suite in test/core.test.js.
-npm run lint	Run Oxlint.
-npm run build	Create a production frontend build in dist/.
-npm run preview	Preview the built frontend locally.
+## 🛠️ Troubleshooting
 
+<details>
+<summary><b>Chatbot gives fallback answers instead of AI answers</b></summary>
 
-Run the checks before submitting changes:
-npm test
-npm run lint
-npm run build
-🔑 API Configuration and Troubleshooting
-The chatbot uses fallback responses instead of AI answers
-1. Confirm that the backend is running.
+1. Confirm the backend is running.
 2. Open http://localhost:3001/api/health.
-3. Check that .env is in the project root.
-4. Verify AI_PROVIDER, AI_API_KEY, and AI_MODEL.
-5. Confirm that the model name is valid for the selected provider.
-6. Review the backend terminal for provider or network errors.
-Never paste API keys into public issue reports or screenshots.
-Tap to Talk does not work
-- Use a supported browser.
-- Allow microphone access for localhost.
+3. Check that `.env` is in the project root.
+4. Verify `AI_PROVIDER`, `AI_API_KEY`, and `AI_MODEL`.
+5. Confirm the model name is valid for your provider.
+6. Read the backend terminal for provider or network errors.
+
+Never paste API keys into public issues or screenshots.
+</details>
+
+<details>
+<summary><b>Tap to Talk doesn't work</b></summary>
+
+- Use a supported browser (Chrome or Edge recommended).
+- Allow microphone access for `localhost`.
 - Confirm the correct language is selected.
-- Check browser-console errors.
-- Try typing a message to distinguish a speech-recognition issue from a chat-backend issue.
-BUDDY displays text but does not speak
-- Check that sound is enabled and the system volume is audible.
-- Check the available voices in the browser/operating system.
-- Select a language for which a compatible speech-synthesis voice is available.
-- Remember that browser speech recognition and speech synthesis are separate capabilities.
-A language works in text but not in speech
-The AI can generate text in a language even when the device has no compatible speech voice installed. The application should keep the written response visible and report voice unavailability instead of silently claiming to speak.
-The 3D scene is slow
+- Check the browser console for errors.
+- Try typing a message to tell a speech issue apart from a backend issue.
+</details>
+
+<details>
+<summary><b>BUDDY shows text but doesn't speak</b></summary>
+
+- Check that sound is enabled and system volume is up.
+- Check the voices available in your browser/OS.
+- Choose a language that has a compatible voice installed.
+- Remember that speech recognition and speech synthesis are separate capabilities.
+</details>
+
+<details>
+<summary><b>The 3D scene is slow</b></summary>
+
 - Close unnecessary browser tabs.
-- Use a supported browser with hardware acceleration enabled.
-- Check the browser console for WebGL errors.
-- Test on the target Science Expo device early.
-🔐 Privacy and Responsible Use
-- Microphone access requires browser permission.
-- Be transparent with visitors when voice input is active.
-- Do not place API credentials in frontend code or public repositories.
-- Avoid entering sensitive personal information into demonstrations.
-- Reset the session between visitors when using the Expo kiosk.
-- If camera-based computer vision is added in a future version, request camera permission explicitly, show when the camera is active, and explain whether images are processed locally or sent to an external AI provider.
-🛣️ Possible Future Enhancements
-These are potential extensions, not claims that they are already implemented in the current repository:
-- Real-time webcam human and object detection.
-- Better small-object recognition for objects such as watches and books.
-- Visual question answering from a captured camera frame.
-- Hand-gesture controls for the interface and games.
-- More reliable voice availability across supported languages.
-- Additional learning challenges and adaptive quizzes.
-- Optional user-controlled progress persistence.
-🤝 Contributing
+- Enable hardware acceleration in the browser.
+- Check the console for WebGL errors.
+- Test on the actual Expo device well in advance.
+</details>
+
+<details>
+<summary><b>Port already in use</b></summary>
+
+Stop the conflicting process, or change the port consistently in `.env`, `vite.config.js` (proxy target), and `VITE_API_BASE_URL`.
+</details>
+
+## ✅ Expo Day Checklist
+
+- [ ] `npm run build` and `npm run preview` work on the **Expo machine**
+- [ ] Microphone permission granted and tested in the venue's noise level
+- [ ] Voices installed for every language you plan to demo
+- [ ] API key valid; fallback behavior tested with Wi-Fi off
+- [ ] Browser in fullscreen / kiosk mode; sleep and notifications disabled
+- [ ] Visitor reset tested between sessions
+
+## 🔒 Privacy & Responsible Use
+
+- Microphone access requires explicit browser permission; tell visitors when voice input is active.
+- Never place API credentials in frontend code or public repositories.
+- Ask visitors not to enter sensitive personal information during demos.
+- Reset the session between visitors when running as a kiosk.
+- If camera-based vision is added later, request camera permission explicitly, show when the camera is active, and state whether images are processed locally or sent to an external provider.
+
+## 🛣️ Roadmap
+
+*Potential extensions — **not** implemented yet:*
+
+- [ ] Real-time webcam human and object detection
+- [ ] Better small-object recognition (e.g., watches, books)
+- [ ] Visual question answering from a captured camera frame
+- [ ] Hand-gesture controls for the interface and games
+- [ ] More reliable voice availability across languages
+- [ ] Additional learning challenges and adaptive quizzes
+- [ ] Optional, user-controlled progress persistence
+
+## 🤝 Contributing
+
 1. Create a feature branch.
-2. Keep changes focused and compatible with the existing architecture.
-3. Avoid committing secrets, generated build files, or node_modules.
-4. Run the tests, linter, and production build.
-5. Describe behavior changes and known limitations in the pull request.
-📄 License
-No license should be assumed from this README. Add a LICENSE file and specify the intended license before distributing or accepting external contributions.
-👨‍🔬 Project Summary
-BUDDY 2.0 brings together conversational AI, multilingual voice interaction, an expressive 3D robot, STEM games, and gamified learning in a Science Expo experience.
-Talk. Play. Learn. Explore.
+2. Keep changes focused and consistent with the existing architecture.
+3. Don't commit secrets, build output, or `node_modules`.
+4. Run `npm test`, `npm run lint`, and `npm run build`.
+5. Describe behavior changes and known limitations in your pull request.
+
+## 📄 License
+
+No license is currently specified, so none should be assumed. Add a `LICENSE` file (e.g., MIT) and update this section before distributing or accepting external contributions.
+
+---
+
+<div align="center">
+
+**BUDDY 2.0** — conversational AI, multilingual voice, an expressive 3D robot, STEM games, and gamified learning in one Science Expo experience.
+
+*Talk. Play. Learn. Explore.* 🚀
+
+</div>
